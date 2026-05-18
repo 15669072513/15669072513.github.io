@@ -898,7 +898,8 @@ export default function ProjectDetail({
     }
     
     // 从API获取 - 使用 GitHub Token 扩大请求限制
-    const githubToken = process.env.GITHUB_TOKEN  || '';
+    // Vite 使用 import.meta.env 访问环境变量
+    const githubToken = (import.meta as any).env?.VITE_GITHUB_TOKEN || (import.meta as any).env?.GITHUB_TOKEN || '';
     try {
       const headers: HeadersInit = {
         'Accept': 'application/vnd.github.v3+json',
@@ -907,7 +908,6 @@ export default function ProjectDetail({
       if (githubToken) {
         headers['Authorization'] = `token ${githubToken}`;
       }
-      console.log('githubToken', githubToken)
 
       const response = await fetch(`https://api.github.com/users/${userName}`, { headers });
       if (response.ok) {

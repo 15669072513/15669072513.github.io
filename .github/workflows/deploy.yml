@@ -38,6 +38,9 @@ jobs:
           node-version: "20"
           cache: npm
 
+      - name: Create environment file
+        run: |
+          echo "VITE_GITHUB_TOKEN=${{ secrets.API_GITHUB_TOKEN }}" > .env.production.local
 
       - name: Install dependencies
         run: npm install

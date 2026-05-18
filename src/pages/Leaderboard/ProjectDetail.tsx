@@ -897,9 +897,19 @@ export default function ProjectDetail({
       return currentInfo;
     }
     
-    // 从API获取
+    // 从API获取 - 使用 GitHub Token 扩大请求限制
+    const githubToken = process.env.API_GITHUB_TOKEN  || '';
     try {
-      const response = await fetch(`https://api.github.com/users/${userName}`);
+      const headers: HeadersInit = {
+        'Accept': 'application/vnd.github.v3+json',
+      };
+      // 如果有 token，则添加到请求头
+      if (githubToken) {
+        console.log('githubToken', githubToken)
+        headers['Authorization'] = `token ${githubToken}`;
+      }
+      
+      const response = await fetch(`https://api.github.com/users/${userName}`, { headers });
       if (response.ok) {
         const data = await response.json();
         const userInfo = {

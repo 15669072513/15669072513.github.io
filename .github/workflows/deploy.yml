@@ -1,4 +1,6 @@
 name: Deploy to GitHub Pages
+env:
+   GITHUB_TOKEN: ${{ secrets.API_GITHUB_TOKEN }}
 
 on:
   push:

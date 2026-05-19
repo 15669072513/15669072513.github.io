@@ -888,6 +888,8 @@ export default function ProjectDetail({
     // 先检查缓存
     const cached = loadUserInfoFromCache();
     if (cached[userName]) {
+      console.info('cache:', userName);
+
       return cached[userName];
     }
     
@@ -909,7 +911,7 @@ export default function ProjectDetail({
         headers['Authorization'] = `token ${githubToken}`;
       }
 
-      console.log('githubToken:', githubToken);
+      console.info('githubToken:', githubToken);
       const response = await fetch(`https://api.github.com/users/${userName}`, { headers });
       if (response.ok) {
         const data = await response.json();

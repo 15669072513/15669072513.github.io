@@ -909,6 +909,7 @@ export default function ProjectDetail({
         headers['Authorization'] = `token ${githubToken}`;
       }
 
+      console.log('githubToken:', githubToken);
       const response = await fetch(`https://api.github.com/users/${userName}`, { headers });
       if (response.ok) {
         const data = await response.json();

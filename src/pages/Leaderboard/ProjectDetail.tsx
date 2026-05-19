@@ -944,9 +944,7 @@ export default function ProjectDetail({
         if (!userInfo || (!userInfo.location && !userInfo.company)) {
           userInfo = await fetchGitHubUserInfo(contributor.name);
           // 每次调用后sleep 50ms
-          console.info('sleep:',now());
           await new Promise(resolve => setTimeout(resolve, 100));
-          console.info('sleep over:',now());
 
         }
         

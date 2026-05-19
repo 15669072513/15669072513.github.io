@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import clsx from "clsx";
 import styles from "../research.module.css";
 import UserDetail from "./UserDetail";
+import {now} from "moment";
 
 // 动态导入 echarts（仅在客户端）
 let echarts: any = null;
@@ -892,7 +893,6 @@ export default function ProjectDetail({
 
       return cached[userName];
     }
-    
     // 再检查内存状态
     const currentInfo = userInfoMap[userName];
     if (currentInfo && (currentInfo.location || currentInfo.company)) {
@@ -944,7 +944,10 @@ export default function ProjectDetail({
         if (!userInfo || (!userInfo.location && !userInfo.company)) {
           userInfo = await fetchGitHubUserInfo(contributor.name);
           // 每次调用后sleep 50ms
-          await new Promise(resolve => setTimeout(resolve, 50));
+          console.info('sleep:',now());
+          await new Promise(resolve => setTimeout(resolve, 100));
+          console.info('sleep over:',now());
+
         }
         
         // 只有当用户信息不为空时才添加到状态
